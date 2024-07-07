@@ -50,8 +50,8 @@ function meu_callback(conteudo){
 
 function pesquisa_cep(valor){
 	
-	//existe um erro na linha de baixo
-	var cep = valor.replace = (/\D/g, '');alert(cep)
+	//erro corrigido
+	var cep = valor.replace(/\D/g, '');//alert(cep)
 //	document.getElementById("rua").value = "aaaaaaa"
 	if (cep != ''){
 		
