@@ -17,7 +17,7 @@ function calcula_media(){
 		
 		
 	}
-	console.log(` esses são os valores por matéria desse aluno, ${notas}`)
+	console.log(` esses são os valores por matéria desse aluno, ${notas} \n`)
 	
 	for (let i=0;i<qtd_nota;i++){
 		
@@ -25,7 +25,7 @@ function calcula_media(){
 	
 	}
 	
-	console.log(`essa é sua média ${soma/qtd_nota}`)
+	console.log(`essa é sua média ${soma/qtd_nota}\n`)
 	
 	return  soma/qtd_nota
 	
@@ -54,7 +54,7 @@ while (verdade){
 		
 	}else if(verdade){
 		
-		console.log("você ficou de recuperação, encaminhando para o REC")
+		console.log("você ficou de recuperação, encaminhando para o REC... \n")
 		recuperacao = 1
 		
 	}else{
