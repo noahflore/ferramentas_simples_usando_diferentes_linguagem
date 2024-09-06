@@ -1,0 +1,59 @@
+body{
+	
+	margin:0%;
+	background-color:#5252b1;
+	
+	
+}
+
+
+h1{
+	
+	text-align: center;
+	color:  #e45858;
+	
+	
+}
+
+ form {
+	
+	
+	padding-left: 30%;
+	
+}
+
+form label{
+	
+	margin-left: 10%;
+	
+	
+}
+
+button{
+	
+	margin-left: 35%;
+}
+
+.card{
+	
+	box-shadow: 2px 2px 4px 4px black;
+	margin-right:50%;
+	border: 3px;
+	
+}
+
+#result{
+	
+	background-color: black;
+	color:white;
+	border: 3px;
+	
+}
+
+#vixi{
+	
+	background-color: black;
+	color:white;
+	border: 3px;
+	
+}
