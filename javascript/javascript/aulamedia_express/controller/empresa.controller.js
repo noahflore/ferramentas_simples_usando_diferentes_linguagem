@@ -1,72 +1,34 @@
-const empresas = [
-	
-	
-	{
-		id:1,
-		nome:"empresa 1",
-		numFuncionario: 100
-		
-	},
-	
-	{
-		id:2,
-		nome:"empresa 2",
-		numFuncionario: 1000
-		
-	},
-	
-	{
-		id:3,
-		nome:"empresa 3",
-		numFuncionario: 5000
-		
-	}
-	
-	
-	
-	
-	]
+const Empresa = require("../model/empresas.model.js")
 
 
-const find = (req,res) =>{
+const find = async (req,res) =>{
 	const id = req.params.id
 	let found = false
 	
+	return res.status(200).send( await Empresa.findById(id))
 	
 	
-	empresas.map((valor)=>{
-		
-		if(valor.id==id){
-			
-			found = true
-			return	res.send(valor)
-			
-		}
-		
-		
-		
-	})
 	
 	if(!found){
-		res.status(404).send({message:"n?o foi encontrado"})
+		res.status(404).send({message:"não foi encontrado"})
 	}
 	
 }
 
 
-const findAllEmpresas = (req,res) =>{
+const findAllEmpresas = async (req,res) =>{
 	
 	
-	res.send(empresas)
+	res.send(await Empresa.find())
 	
 	
 }
 
 
 
-const createEmpresas = (req,res) =>{
+const createEmpresas = async (req,res) =>{
 	const empresa = req.body;
-	empresas.push(empresa)
+	//empresas.push(empresa)
 	
 	if(Object.keys(empresa).length === 0){
 		
@@ -74,25 +36,20 @@ const createEmpresas = (req,res) =>{
 		
 	}
 	
-	if(!empresa.id){
-		
-		return res.status(400).send({message:"o campo 'id' est  v zio"})
-		
-	}
 	
 	if(!empresa.nome){
 		
-		return res.status(400).send({message:"o campo 'nome' est  v zio"})
+		return res.status(400).send({message:"o campo 'nome' está vázio"})
 		
 	}
 	
 	if(!empresa.numFuncionario){
 		
-		return res.status(400).send({message:"o campo 'numFuncionario' est  v zio"})
+		return res.status(400).send({message:"o campo 'numFuncionario' está vázio"})
 		
 	}
 	
-	res.status(201).send(empresas)
+	res.status(201).send(await Empresa.create(empresa))
 	
 }
 
@@ -102,9 +59,6 @@ const updateEmpresas = (req,res)=>{
 	let found = false
 	
 	
-	
-	empresas.push(empresa)
-	
 	if(Object.keys(empresa).length === 0){
 		
 		return res.status(400).send({message:"dados vazio"})
@@ -113,35 +67,23 @@ const updateEmpresas = (req,res)=>{
 	
 	if(!empresa.id){
 		
-		return res.status(400).send({message:"o campo 'id' est  v zio"})
+		return res.status(400).send({message:"o campo 'id' está vázio"})
 		
 	}
 	
 	if(!empresa.nome){
 		
-		return res.status(400).send({message:"o campo 'nome' est  v zio"})
+		return res.status(400).send({message:"o campo 'nome' está vázio"})
 		
 	}
 	
 	if(!empresa.numFuncionario){
 		
-		return res.status(400).send({message:"o campo 'numFuncionario' est  v zio"})
+		return res.status(400).send({message:"o campo 'numFuncionario' está vázio"})
 		
 	}
 	
-	empresas.map((valor,index)=>{
-		
-		if(valor.id==id){
-			
-			empresas[index] = empresa
-			found = true
-			return	res.send(empresas[index])
-			
-		}
-		
-		
-		
-	})
+	 res.status(201).send(await Empresa.findByIdAndUpdate(id,empresa,{returnDocument:"alguma coisa"}))
 	
 	if(!found){
 		res.status(404).send({message:"n?o foi encontrado"})
@@ -155,21 +97,7 @@ const deleteEmpresas = (req,res)=>{
 		const id = req.params.id
 	let found = false
 	
-	
-	
-	empresas.map((valor,index)=>{
-		
-		if(valor.id==id){
-			
-			found = true
-			emresas.splice(index,1)
-			return	res.send(valor)
-			
-		}
-		
-		
-		
-	})
+	res.status(200).send(Empresa.findByIdAndDelete(id))
 	
 	if(!found){
 		res.status(404).send({message:"n?o foi encontrado"})

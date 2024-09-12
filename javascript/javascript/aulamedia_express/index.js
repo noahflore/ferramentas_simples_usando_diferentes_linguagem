@@ -1,9 +1,10 @@
 const Express= require("express")
-
+const connectToDataBase= require("./database/database")
 
 const app= Express()
 const empresa = require("./router/empresa.router")
 
+connectToDataBase()
 
 const port= 3000
 
