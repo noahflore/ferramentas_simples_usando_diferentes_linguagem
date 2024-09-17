@@ -1,18 +1,29 @@
 const Empresa = require("../model/empresas.model.js")
+const mongoose= require("mongoose")
 
 
 const find = async (req,res) =>{
-	const id = req.params.id
-	let found = false
+
+	try{
+
+		const id = new	mongoose.Types.ObjectId(req.params.id)
+		let found = false
+		const empresa= await Empresa.findById(id)
+		
+		if(empresa!=null){
+			found= true
+		}
+				
+		if(!found){
+			return res.status(404).send({message:"não foi encontrado"})
+		}
+
+		return res.status(200).send(empresa)
 	
-	return res.status(200).send( await Empresa.findById(id))
-	
-	
-	
-	if(!found){
-		res.status(404).send({message:"não foi encontrado"})
+	}catch(err){
+		console.log(`erro: ${err}`)
+		return res.status(500).send("erro no servidor tente novamente mais tarde.")
 	}
-	
 }
 
 
@@ -53,7 +64,7 @@ const createEmpresas = async (req,res) =>{
 	
 }
 
-const updateEmpresas = (req,res)=>{
+const updateEmpresas = async (req,res)=>{
 	const id = req.params.id
 	const empresa = req.body;
 	let found = false
@@ -62,12 +73,6 @@ const updateEmpresas = (req,res)=>{
 	if(Object.keys(empresa).length === 0){
 		
 		return res.status(400).send({message:"dados vazio"})
-		
-	}
-	
-	if(!empresa.id){
-		
-		return res.status(400).send({message:"o campo 'id' está vázio"})
 		
 	}
 	
@@ -83,7 +88,7 @@ const updateEmpresas = (req,res)=>{
 		
 	}
 	
-	 res.status(201).send(await Empresa.findByIdAndUpdate(id,empresa,{returnDocument:"alguma coisa"}))
+	 res.status(201).send(await Empresa.findByIdAndUpdate(id,empresa,{returnDocument:"after"}))
 	
 	if(!found){
 		res.status(404).send({message:"n?o foi encontrado"})
@@ -93,14 +98,14 @@ const updateEmpresas = (req,res)=>{
 	
 }
 
-const deleteEmpresas = (req,res)=>{
+const deleteEmpresas = async (req,res)=>{
 		const id = req.params.id
 	let found = false
 	
-	res.status(200).send(Empresa.findByIdAndDelete(id))
+	res.status(200).send(await Empresa.findByIdAndDelete(id))
 	
 	if(!found){
-		res.status(404).send({message:"n?o foi encontrado"})
+		res.status(404).send({message:"não foi encontrado"})
 	}
 	
 	
