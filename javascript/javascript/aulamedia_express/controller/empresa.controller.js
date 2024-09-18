@@ -1,4 +1,4 @@
-const Empresa = require("../model/empresas.model.js")
+const empresaService = require("../service/empresa.service")
 const mongoose= require("mongoose")
 
 
@@ -8,7 +8,7 @@ const find = async (req,res) =>{
 
 		const id = new	mongoose.Types.ObjectId(req.params.id)
 		let found = false
-		const empresa= await Empresa.findById(id)
+		const empresa= await empresaService.findByIdEmpresa(id)
 		
 		if(empresa!=null){
 			found= true
@@ -30,7 +30,7 @@ const find = async (req,res) =>{
 const findAllEmpresas = async (req,res) =>{
 	
 	
-	res.send(await Empresa.find())
+	res.send(await  empresaService.findAllEmpresa())
 	
 	
 }
@@ -60,7 +60,7 @@ const createEmpresas = async (req,res) =>{
 		
 	}
 	
-	res.status(201).send(await Empresa.create(empresa))
+	res.status(201).send(await  empresaService.createEmpresa(empresa))
 	
 }
 
@@ -88,7 +88,7 @@ const updateEmpresas = async (req,res)=>{
 		
 	}
 	
-	 res.status(201).send(await Empresa.findByIdAndUpdate(id,empresa,{returnDocument:"after"}))
+	 res.status(201).send(await empresaService.updateEmpresa(id,empresa))
 	
 	if(!found){
 		res.status(404).send({message:"n?o foi encontrado"})
@@ -102,7 +102,7 @@ const deleteEmpresas = async (req,res)=>{
 		const id = req.params.id
 	let found = false
 	
-	res.status(200).send(await Empresa.findByIdAndDelete(id))
+	return res.status(200).send(await empresaService.deleteEmpresa(id))
 	
 	if(!found){
 		res.status(404).send({message:"não foi encontrado"})
