@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const usuario = require("../controller/usuario.controller")
+const usuario = require("../controller/usuarioController")
 
 
 // o 'CRUD' completo dado pelas rotas

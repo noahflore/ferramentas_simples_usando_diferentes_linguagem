@@ -58,16 +58,6 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
 		
 	}
 	
-	if(!usuario.id){
-		
-		return res.status(400).send({message:"o campo 'id' está vázio."})
-		
-	}else if(typeof(usuario.id)!="number"){
-
-		return res.status(400).send({message:"o campo 'id' tem que se um número do tipo 'Int'."})
-
-	}
-	
 	if(!usuario.nome){//o 'nome' só verifica se não está vázio e é string (optei em deixa o usuário personaliza seu nome)
 		
 		return res.status(400).send({message:"o campo 'nome' está vázio."})
@@ -148,14 +138,12 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
 }
 
 
-const updateUsuarios = (req,res) =>{//atualiza os dados do usuário pelo id dele
+const updateUsuarios = async (req,res) =>{//atualiza os dados do usuário pelo id dele
 	const id = req.params.id
 	const usuario = req.body;
-	let found = false
 	
 	/* aqui também valida os atributos e se estão no formato valido
 		o 'id' não será validado porque ele não pode se alterado
-		no final dessa função o 'usuario.id' recebe a const 'id'
 
 		*/
 	
@@ -231,52 +219,43 @@ const updateUsuarios = (req,res) =>{//atualiza os dados do usuário pelo id dele
 	
 	usuario.masculino= usuario.masculino.toUpperCase()
 	usuario.ano= calculaData(usuario.nascimento)
-	
-	usuarios.map((valor,index)=>{
-		
-		if(valor.id==id){
-			
-			usuario.id= id//o id do usuário será mantido
-			usuarios[index] = usuario
-			found = true
-			return	res.send(usuarios[index])
-			
-		}
-		
-		
-		
-	})
-	
-	if(!found){
-		res.status(404).send({message:"não foi encontrado."})
-	}
+
+	try{
+	    res.status(201).send(await  usuarioService.updateUsuario(id,usuario))
+
+    }catch(err){
+        console.log(`erro: ${err}`)
+		return res.status(500).send("erro no servidor tente novamente mais tarde.")
+    }
 	
 	
 }
 
-const deleteUsuarios = (req,res)=>{
+const deleteUsuarios = async (req,res)=>{
 	const id = req.params.id
-	let found = false
-	
-	
-	
-	usuarios.map((valor,index)=>{
+
+	try{
 		
-		if(valor.id==id){
-			
-			found = true
-			usuarios.splice(index,1)
-			return	res.send(valor)
-			
+		const id = new	mongoose.Types.ObjectId(req.params.id)
+		let found = false
+		const usuario= await usuarioService.findByIdUsuario(id)
+		
+		if(usuario!=null){
+			found= true
+		}
+				
+		if(!found){
+			return res.status(404).send({message:"não foi encontrado"})
 		}
 		
+	   	 res.status(201).send(await  usuarioService.deleteUsuario(id))
 		
-		
-	})
+
+    }catch(err){
+        console.log(`erro: ${err}`)
+		return res.status(500).send("erro no servidor tente novamente mais tarde.")
+    }
 	
-	if(!found){
-		res.status(404).send({message:"não foi encontrado."})
-	}
 	
 	
 }
