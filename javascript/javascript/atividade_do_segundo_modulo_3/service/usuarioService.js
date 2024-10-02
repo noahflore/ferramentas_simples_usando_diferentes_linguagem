@@ -1,12 +1,7 @@
 const Usuario= require("../model/usuario.js")
 
-
 const findByIdUsuario= (id)=>{
     return Usuario.findById(id)
-}
-
-const findAllEmpresa= ()=>{
-    return Usuario.find()
 }
 
 const createUsuario= (usuario)=>{
@@ -23,7 +18,6 @@ const deleteUsuario= (id)=>{
 
 module.exports={
     findByIdUsuario,
-    findAllEmpresa,
     createUsuario,
     updateUsuario,
     deleteUsuario

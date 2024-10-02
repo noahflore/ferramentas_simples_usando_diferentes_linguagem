@@ -1,30 +1,16 @@
 const usuarioService= require("../service/usuarioService")
+const authService= require("../service/authService")
 const mongoose= require("mongoose")
+const jwt= require("jsonwebtoken")
+//foi definido o segredo aqui para função login funciona.
+const segredo='ecvnhsu74d2d93hs6ab'
 
 	function validaEmail(email) {//valida o formato do email
 		var re = /\S+@\S+\.\S+/;
 		return re.test(email);
 	  }
-	
 
-	function calculaData(dataString) {//calcula a idade mesmo em anos bicesto
-
-		const hoje = new Date();
-		const aniversario = new Date(dataString);
-		let idade = hoje.getFullYear() - aniversario.getFullYear();
-		const m = hoje.getMonth() - aniversario.getMonth();
-		
-		if (m < 0 || (m === 0 && hoje.getDate() < aniversario.getDate())) {
-			idade--;
-		}
-		
-		return idade;
-	}
-	
-	
-
-
-const find = async (req,res) =>{
+const find = async (req,res) =>{//procura um usuário usando o id dele
 	
 	try{
 
@@ -55,7 +41,6 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
 	if(Object.keys(usuario).length === 0){
 		
 		return res.status(400).send({message:"usuário vázio."})
-		
 	}
 	
 	if(!usuario.nome){//o 'nome' só verifica se não está vázio e é string (optei em deixa o usuário personaliza seu nome)
@@ -65,7 +50,6 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
 	}else if(typeof(usuario.nome)!="string"){
 
 		return res.status(400).send({message:"o campo 'nome' tem que se string."})
-
 	}
 	
 	if(!usuario.nascimento){
@@ -75,14 +59,12 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
 	}else if(typeof(usuario.nascimento)!="string"){
 
 		return res.status(400).send({message:"o campo 'nascimento' tem que se String no formato yyyy/mm/dd"})
-
 	}
 	//essa const serve apenas para recebe uma data valida caso seja invalida ele retorna uma msg
 	const formatoData = new Date(usuario.nascimento)
 	if(formatoData == "Invalid Date"){
 
 		return res.status(400).send({message:"o campo 'nascimento' tem que está no formato yyyy/mm/dd"})
-
 	}
 	
 	if(!usuario.email){
@@ -98,7 +80,6 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
 		return res.status(400).send({message:"o campo 'email' está no formato invalido."})
 	}
 
-
 	if(!usuario.senha){
 		
 		return res.status(400).send({message:"o campo 'senha' está vázio."})
@@ -106,7 +87,6 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
 	}else if(typeof(usuario.senha)!="string"){
 
 		return res.status(400).send({message:"o campo 'senha' tem que se string."})
-
 	}
 	
 	if(!usuario.masculino){
@@ -120,12 +100,9 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
 	}else if(usuario.masculino.toUpperCase()!="YES" && usuario.masculino.toUpperCase()!="NO"){
 
 		return res.status(400).send({message:'o campo (masculino) só pode recebe dois valores (yes) ou (no).'})
-
 	}
 	//essa linha de baixo padroniza para letras maiúscula
 	usuario.masculino= usuario.masculino.toUpperCase()
-	//essa outra linha possui uma função 'calculaData' que retorna a idade baseado no nascimento do usuário e a data de hoje
-	usuario.ano= calculaData(usuario.nascimento)
 
     try{
 	    res.status(201).send(await  usuarioService.createUsuario(usuario))
@@ -134,9 +111,7 @@ const createUsuarios = async (req,res) =>{//criar um novo usuário
         console.log(`erro: ${err}`)
 		return res.status(500).send("erro no servidor tente novamente mais tarde.")
     }
-	
 }
-
 
 const updateUsuarios = async (req,res) =>{//atualiza os dados do usuário pelo id dele
 	const id = req.params.id
@@ -150,7 +125,6 @@ const updateUsuarios = async (req,res) =>{//atualiza os dados do usuário pelo i
 	if(Object.keys(usuario).length === 0){
 		
 		return res.status(400).send({message:"usuário vázio."})
-		
 	}
 	
 	if(!usuario.nome){
@@ -160,7 +134,6 @@ const updateUsuarios = async (req,res) =>{//atualiza os dados do usuário pelo i
 	}else if(typeof(usuario.nome)!="string"){
 
 		return res.status(400).send({message:"o campo 'nome' tem que se string."})
-
 	}
 	
 	if(!usuario.nascimento){
@@ -170,14 +143,12 @@ const updateUsuarios = async (req,res) =>{//atualiza os dados do usuário pelo i
 	}else if(typeof(usuario.nascimento)!="string"){
 
 		return res.status(400).send({message:"o campo 'nascimento' tem que se String no formato yyyy/mm/dd"})
-
 	}
 
 	const formatoData = new Date(usuario.nascimento)
 	if(formatoData == "Invalid Date"){
 
 		return res.status(400).send({message:"o campo 'nascimento' tem que está no formato yyyy/mm/dd"})
-
 	}
 	
 	if(!usuario.email){
@@ -200,7 +171,6 @@ const updateUsuarios = async (req,res) =>{//atualiza os dados do usuário pelo i
 	}else if(typeof(usuario.senha)!="string"){
 
 		return res.status(400).send({message:"o campo 'senha' tem que se string."})
-
 	}
 	
 	if(!usuario.masculino){
@@ -214,11 +184,9 @@ const updateUsuarios = async (req,res) =>{//atualiza os dados do usuário pelo i
 	}else if(usuario.masculino.toUpperCase()!="YES" && usuario.masculino.toUpperCase()!="NO"){
 
 		return res.status(400).send({message:'o campo (masculino) só pode recebe dois valores (yes) ou (no)'})
-
 	}
 	
 	usuario.masculino= usuario.masculino.toUpperCase()
-	usuario.ano= calculaData(usuario.nascimento)
 
 	try{
 	    res.status(201).send(await  usuarioService.updateUsuario(id,usuario))
@@ -227,8 +195,6 @@ const updateUsuarios = async (req,res) =>{//atualiza os dados do usuário pelo i
         console.log(`erro: ${err}`)
 		return res.status(500).send("erro no servidor tente novamente mais tarde.")
     }
-	
-	
 }
 
 const deleteUsuarios = async (req,res)=>{
@@ -248,26 +214,76 @@ const deleteUsuarios = async (req,res)=>{
 			return res.status(404).send({message:"não foi encontrado"})
 		}
 		
-	   	 res.status(201).send(await  usuarioService.deleteUsuario(id))
+	   	 res.status(200).send(await  usuarioService.deleteUsuario(id))
 		
-
     }catch(err){
         console.log(`erro: ${err}`)
 		return res.status(500).send("erro no servidor tente novamente mais tarde.")
     }
-	
-	
-	
 }
 
+const usuarioTesteToken= (req,res)=>{//testa se o token passado se é valido e existe!
+	const authHeaders= req.headers.authorization
 
+	if(!authHeaders){
+		return res.status(401).send({message:"token não foi informado."})
+	}
+
+	const parts = authHeaders.split(" ")
+
+	if(parts.length !== 2){
+		return res.status(401).send({message:"token invalido!"})
+	}
+
+	const [scheme, token] = parts
+
+	if(!/^Bearer$/i.test(scheme)){
+		return res.status(401).send({message:"token malformatado!"})
+	}
+
+	jwt.verify(token,segredo,async (err,decoded)=>{
+		if(err){
+			console.log(`erro: ${err}`)
+			return res.status(500).send({message:"erro no servidor tente novamente mais tarde"})
+		}
+
+		res.send(decoded)
+	})
+}
+
+const usuarioLogin= async (req,res)=>{//aqui utilizei outro tipo de verificação do email e senha
+
+	try{
+		const {email, senha}= req.body
+		const user= await authService.loginService(email)
+
+		if(!user){
+			return res.status(400).send({message:"erro no login ou senha: verifica se ambos estão no formato string e foi digitado corretamente."})
+		}
+
+		if(senha != user.senha){
+			return res.status(400).send({message:"erro no login ou senha: verifica se ambos estão no formato string e foi digitado corretamente."})
+		}
+
+		const token= authService.generateToken(user,segredo)
+		res.status(200).send({
+			user,
+			token
+		})
+	}catch(err){
+		console.log(`erro: ${err}`)
+		return res.status(500).send({message:"erro no servidor tente novamente mais tarde."})
+	}
+}
 
 module.exports = {
 	
 	find,
 	updateUsuarios,
 	deleteUsuarios,
-	createUsuarios
+	createUsuarios,
+	usuarioTesteToken,
+	usuarioLogin
 	
 	
 }
