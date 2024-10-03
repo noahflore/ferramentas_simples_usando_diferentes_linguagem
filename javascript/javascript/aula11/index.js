@@ -1,8 +1,8 @@
 const Express= require("express")
-const connectToDataBase= require("./database/database")
+const connectToDataBase= require("./src/database/database")
 
 const app= Express()
-const usuario = require("./router/usuario.router")
+const usuario = require("./src/router/usuario.router")
 
 connectToDataBase()
 
@@ -10,7 +10,7 @@ const port= 3000
 
 
 app.use(Express.json())
-app.use("/empresa",usuario)
+app.use("/usuario",usuario)
 
 app.get("/",(req,res)=>{
 	
