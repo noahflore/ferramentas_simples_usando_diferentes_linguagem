@@ -36,6 +36,13 @@ const findAllUsersController= async (req,res)=>{
 
 const createUserController= async (req,res)=>{
     try{
+        const body= req.body
+
+        if(!body.nome){
+            return res.status(400).send({message:"o campo 'nome' está vázio"})
+        }
+
+        return res.status(201).send(await userService.createService(body))
 
     }catch(err){
         console.log(`erro: ${err.message}`)
