@@ -70,10 +70,11 @@ const deleteUserController= async (req,res)=>{
 
         const deletedUser= await userService.deleteService(req.params.id)
 
-        if(deletedUser.deletedCount>0){
-           return res.status(200).send({message:"usuario deletado com sucesso."})
+        if(deletedUser == null){
+           return res.status(400).send({message:"nenhum usuario foi encontrado."})
+           
         }else{
-            return res.status(400).send({message:"nenhum usuario foi encontrado."})
+            return res.status(200).send({message:"usuario deletado com sucesso."})
         }
 
     }catch(err){
@@ -84,6 +85,14 @@ const deleteUserController= async (req,res)=>{
 
 const addAddressController= async (req,res)=>{
     try{
+        req.body.createdAt=  Date.now()
+        const endereco = await userService.addAddressService(req.params.id,req.body)
+        
+        if(endereco.ok == 1){
+            return res.status(201).send({message:"endereço criado com sucesso."})
+        }else{
+            return res.status(400).send({message:"erro na criação do endereço."})
+        }
 
     }catch(err){
         console.log(`erro: ${err.message}`)
@@ -102,7 +111,14 @@ const addFavProductController= async (req,res)=>{
 
 const removeAddressController= async (req,res)=>{
     try{
+        
+        const endereco = await userService.removeAddressService(req.body.id,req.body.addressId)
 
+        if(endereco.ok == 1){
+            return res.status(201).send({message:"endereço removido com sucesso."})
+        }else{
+            return res.status(400).send({message:"erro ao deleta o endereço."})
+        }
     }catch(err){
         console.log(`erro: ${err.message}`)
        return res.status(500).send({message:"erro no servidor tente novamente mais tarde."})

@@ -2,7 +2,7 @@ const mongoose= require("mongoose")
 
 
 function connectToDataBase(){
-    mongoose.connect("mongodb://127.0.0.1:27017/teste?compressors=none",{
+    mongoose.connect("mongodb://127.0.0.1:27017/market-place?compressors=none",{
         useNewUrlParser:true,
         useUnifiedTopology:true
     }).then(()=>{

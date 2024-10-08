@@ -4,7 +4,7 @@ const usuarioSchema=new mongoose.Schema({
     email:{type:String,unique:true,required:true},
     senha:{type:String,required:true},
     imagem:{type:String,required:true},
-    endereco:[
+    enderecos:[
         {
             rua:{type:String,require:true},
             numero:{type:Number,require:true},
