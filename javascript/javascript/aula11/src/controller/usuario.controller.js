@@ -88,7 +88,7 @@ const addAddressController= async (req,res)=>{
         req.body.createdAt=  Date.now()
         const endereco = await userService.addAddressService(req.params.id,req.body)
         
-        if(endereco.ok == 1){
+        if(endereco !=null && endereco.value == null){
             return res.status(201).send({message:"endereço criado com sucesso."})
         }else{
             return res.status(400).send({message:"erro na criação do endereço."})
@@ -113,8 +113,15 @@ const removeAddressController= async (req,res)=>{
     try{
         
         const endereco = await userService.removeAddressService(req.body.id,req.body.addressId)
+        let found=false
+        
+        endereco.enderecos.map((valor,chave)=>{
+            if(valor._id==req.body.addressId){
+                found = true
+            }
+        })
 
-        if(endereco.ok == 1){
+        if(found){
             return res.status(201).send({message:"endereço removido com sucesso."})
         }else{
             return res.status(400).send({message:"erro ao deleta o endereço."})
