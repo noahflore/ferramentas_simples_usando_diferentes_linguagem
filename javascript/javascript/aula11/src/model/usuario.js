@@ -1,4 +1,6 @@
 const mongoose=require("mongoose")
+const bcrypt= require("bcrypt")
+
 const usuarioSchema=new mongoose.Schema({
     nome:{type:String,required:true},
     email:{type:String,unique:true,required:true},
@@ -21,6 +23,13 @@ const usuarioSchema=new mongoose.Schema({
         }
     ],
     admin:{type:Boolean,require:true,default:false}
+})
+
+usuarioSchema.pre("save",async function (next){
+    if(this.senha){
+        this.senha= await bcrypt.hash(this.senha,10)
+    }
+    next()
 })
 
 const novoUsuario=mongoose.model("usuarios",usuarioSchema)
