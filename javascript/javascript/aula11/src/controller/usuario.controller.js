@@ -1,4 +1,7 @@
 const userService= require("../service/usuario.service")
+const authService= require("../service/auth.service")
+
+const segredo="cj84bbfh759hf746"
 
 const findByIdUserController= async (req,res)=>{
     try{
@@ -141,6 +144,31 @@ const removeFavProductController= async (req,res)=>{
     }
 }
 
+const usuarioLogin= async (req,res)=>{//aqui utilizei outro tipo de verificação do email e senha
+
+	try{
+		const {email, senha}= req.body
+		const user= await authService.loginService(email)
+
+		if(!user){
+			return res.status(400).send({message:"erro no login ou senha: verifica se ambos estão no formato string e foi digitado corretamente."})
+		}
+
+		if(senha != user.senha){
+			return res.status(400).send({message:"erro no login ou senha: verifica se ambos estão no formato string e foi digitado corretamente."})
+		}
+
+		const token= authService.generateToken(user,segredo)
+		res.status(200).send({
+			user,
+			token
+		})
+	}catch(err){
+		console.log(`erro: ${err}`)
+		return res.status(500).send({message:"erro no servidor tente novamente mais tarde."})
+	}
+}
+
 
 module.exports= {
     findByIdUserController,
@@ -151,5 +179,6 @@ module.exports= {
     addAddressController,
     addFavProductController,
     removeAddressController,
-    removeFavProductController
+    removeFavProductController,
+    usuarioLogin
 }
