@@ -1,8 +1,6 @@
 const userService= require("../service/usuario.service")
 const authService= require("../service/auth.service")
 
-const segredo="cj84bbfh759hf746"
-
 const findByIdUserController= async (req,res)=>{
     try{
 
@@ -158,7 +156,7 @@ const usuarioLogin= async (req,res)=>{//aqui utilizei outro tipo de verificaçã
 			return res.status(400).send({message:"erro no login ou senha: verifica se ambos estão no formato string e foi digitado corretamente."})
 		}
 
-		const token= authService.generateToken(user,segredo)
+		const token= authService.generateToken(user,process.env.SECRETKEY)
 		res.status(200).send({
 			user,
 			token

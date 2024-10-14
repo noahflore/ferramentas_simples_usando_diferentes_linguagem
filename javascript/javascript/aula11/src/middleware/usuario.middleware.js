@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken")
 const {findByIdService}= require("../service/usuario.service")
-const segredo="cj84bbfh759hf746"
 
 module.exports= async (req,res,next)=>{
    const authHeaders= req.headers.authorization
@@ -21,7 +20,7 @@ module.exports= async (req,res,next)=>{
         return res.status(401).send({message:"o token malformatado."})
     }
 
-    jwt.verify(token,segredo,async (err,decoded)=>{
+    jwt.verify(token,process.env.SECRETKEY,async (err,decoded)=>{
         if(err){
             return res.status(500).send({message:"o token invalido."})
         }
