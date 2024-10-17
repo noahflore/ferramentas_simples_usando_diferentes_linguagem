@@ -40,15 +40,15 @@ const addCategoriaProductService= (id,categoria)=>{
     )
 }
 
-const removeCategoriaProductService= (categoria)=>{
+const removeCategoriaProductService= (id,categoria)=>{
     return Produto.findOneAndUpdate(
         {
-            _id:categoria.id
+            _id:id
         },
         {
             $pull:{
                 categoria:{
-                    _id:categoria.idCategoria
+                    _id:categoria._id
                 }
             }
         },

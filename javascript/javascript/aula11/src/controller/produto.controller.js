@@ -75,7 +75,7 @@ const addCategoriaProductController= async (req,res)=>{
 const removeCategoriaProductController= async (req,res)=>{
 
     try{
-        return res.send(await productService.removeCategoriaProductService(req.body))
+        return res.send(await productService.removeCategoriaProductService(req.params.id,req.body))
 
     }catch(err){
         console.log(`erro: ${err}`)
