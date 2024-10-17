@@ -11,23 +11,26 @@ module.exports= async (req,res,next)=>{
     const parts = authHeaders.split(" ")
 
     if(parts.length !== 2){
+        console.log("token tem um tamanho acima de 2")
         return res.status(401).send({message:"o token invalido."})
     }
 
-    const {schema , token}= parts
+    const [schema , token]= parts
 
-    if(/^Bearer$/i.test(schema)){
+    if(!/^Bearer$/i.test(schema)){
         return res.status(401).send({message:"o token malformatado."})
     }
 
     jwt.verify(token,process.env.SECRETKEY,async (err,decoded)=>{
         if(err){
+            console.log(`erro verify: ${err}`)
             return res.status(500).send({message:"o token invalido."})
         }
-
-        const user= findByIdService(decoded.id)
+        //se de erro aqui verifica se o id foi pego do req ou decoded
+        const user= await findByIdService(decoded.user._id)
 
         if(!user || !user.id){
+            console.log(`erro user: ${user}`)
             return res.status(500).send({message:"o token invalido."})
         }
 
