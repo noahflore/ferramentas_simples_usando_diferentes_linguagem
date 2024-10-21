@@ -6,6 +6,7 @@ const app= Express()
 const usuario = require("./src/router/usuario.router")
 const produto = require("./src/router/produto.router")
 const categoria = require("./src/router/categoria.router")
+const carrinho = require("./src/router/carrinho.router")
 
 connectToDataBase()
 
@@ -16,6 +17,7 @@ app.use(Express.json())
 app.use("/usuario",usuario)
 app.use("/produto",produto)
 app.use("/categoria",categoria)
+app.use("/carrinho",carrinho)
 
 app.get("/",(req,res)=>{
 	
