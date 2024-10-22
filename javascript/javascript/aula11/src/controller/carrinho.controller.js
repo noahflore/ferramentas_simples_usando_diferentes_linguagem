@@ -7,7 +7,7 @@ const findCarrinhoByIdController= async (req,res)=>{
 
     }catch(err){
         console.log(`erro: ${err}`)
-        return res.status(500).send("erro no servidor tente novamente mais tarde.")
+        return res.status(500).send({message:"erro no servidor tente novamente mais tarde."})
     }
 }
 
@@ -19,7 +19,7 @@ const findAllCarrinhoController=async (req,res)=>{
 
     }catch(err){
         console.log(`erro: ${err}`)
-        return res.status(500).send("erro no servidor tente novamente mais tarde.")
+        return res.status(500).send({message:"erro no servidor tente novamente mais tarde."})
     }
 }
 
@@ -28,14 +28,14 @@ const createCarrinhoController=async (req,res)=>{
     try{
         const corpo={
             ...req.body,
-            userId:req.userId
+            userId: req.userId
         }
         return res.status(201).send(await carrinhoService.createCarrinhoService(corpo))
 
 
     }catch(err){
         console.log(`erro: ${err}`)
-        return res.status(500).send("erro no servidor tente novamente mais tarde.")
+        return res.status(500).send({message:"erro no servidor tente novamente mais tarde."})
     }
 }
 
@@ -47,7 +47,7 @@ const updateCarrinhoController=async (req,res)=>{
 
     }catch(err){
         console.log(`erro: ${err}`)
-        return res.status(500).send("erro no servidor tente novamente mais tarde.")
+        return res.status(500).send({message:"erro no servidor tente novamente mais tarde."})
     }
 }
 
@@ -59,7 +59,7 @@ const deleteCarrinhoController=async (req,res)=>{
 
     }catch(err){
         console.log(`erro: ${err}`)
-        return res.status(500).send("erro no servidor tente novamente mais tarde.")
+        return res.status(500).send({message:"erro no servidor tente novamente mais tarde."})
     }
 }
 

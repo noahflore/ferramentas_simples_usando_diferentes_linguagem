@@ -8,7 +8,7 @@ const produtoScrema= new mongoose.Schema({
     codigoBarra: {type:Number, unique:true,required:true},
     categoria:[
         {
-            _id: {type:mongoose.Schema.Types.ObjectId, required:true,unique:true,ref:"categorias"},
+            _id: {type:mongoose.Schema.Types.ObjectId, required:true,ref:"categorias"},
             createdAt: {type:Date,required:true,default:Date.now()}
         }
     ]

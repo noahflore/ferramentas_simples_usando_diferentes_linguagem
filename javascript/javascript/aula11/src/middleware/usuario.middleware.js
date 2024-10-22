@@ -34,7 +34,7 @@ module.exports= async (req,res,next)=>{
             return res.status(500).send({message:"o token invalido."})
         }
 
-        req.userId= decoded.id
+        req.userId= decoded.user._id
 
         return next()
     })
