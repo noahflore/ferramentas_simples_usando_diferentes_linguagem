@@ -9,7 +9,7 @@ const produtoScrema= new mongoose.Schema({
     categoria:[
         {
             _id: {type:mongoose.Schema.Types.ObjectId, required:true,unique:true,ref:"categorias"},
-            createdAt: {type:Date,required:true}
+            createdAt: {type:Date,required:true,default:Date.now()}
         }
     ]
 })
