@@ -28,8 +28,7 @@ const createCarrinhoController=async (req,res)=>{
     try{
         const corpo={
             ...req.body,
-            userId:req.userId,
-            createdAt:new Date()
+            userId:req.userId
         }
         return res.status(201).send(await carrinhoService.createCarrinhoService(corpo))
 

@@ -23,11 +23,8 @@ const findAllCategoriaController= async (req,res)=>{
 
 const createCategoriaController= async (req,res)=>{
     try{
-        const corpo={
-            ...req.body,
-            createdAt: new Date()
-        }
-        return res.status(201).send(await categoriaService.createCategoriaService(corpo))
+
+        return res.status(201).send(await categoriaService.createCategoriaService(req.body))
 
     }catch(err){
         console.log(`erro: ${err}`)
