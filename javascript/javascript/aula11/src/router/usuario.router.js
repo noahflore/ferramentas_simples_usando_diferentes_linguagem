@@ -7,13 +7,13 @@ router.get('/findAll',usuarioController.findAllUsersController)
 
 router.post('/login',usuarioController.usuarioLogin)
 router.post('/create',usuarioController.createUserController)
-router.post('/addAddress/:id',usuarioController.addAddressController)
-router.post('/addFavProduct/:id',usuarioController.addFavProductController)
+router.post('/addAddress/:id',authMiddleware,usuarioController.addAddressController)
+router.post('/addFavProduct/:id',authMiddleware,usuarioController.addFavProductController)
 
 router.put('/update/:id',usuarioController.updateUserController)
 
-router.delete('/removeUser/:id',usuarioController.deleteUserController)
-router.delete('/removeFavProduct',usuarioController.removeFavProductController)
-router.delete('/removeAddress',usuarioController.removeAddressController)
+router.delete('/removeUser/:id',authMiddleware,usuarioController.deleteUserController)
+router.delete('/removeFavProduct/:id',authMiddleware,usuarioController.removeFavProductController)
+router.delete('/removeAddress',authMiddleware,usuarioController.removeAddressController)
 
 module.exports= router

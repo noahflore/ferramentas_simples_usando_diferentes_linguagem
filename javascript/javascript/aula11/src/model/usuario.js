@@ -18,8 +18,8 @@ const usuarioSchema=new mongoose.Schema({
     createdAt:{type:Date,require:true,default:Date.now()},
     produtos_fav:[
         {
-            _id:{type:mongoose.Schema.Types.ObjectId,require:true,unique:true,ref:"produtos"},
-            createdAt:{type:Date,require:true,default:Date.now()}
+            _id:{type:mongoose.Schema.Types.ObjectId,unique:true,ref:"produtos"},
+            createdAt:{type:Date,default:Date.now()}
         }
     ],
     admin:{type:Boolean,require:true,default:false}

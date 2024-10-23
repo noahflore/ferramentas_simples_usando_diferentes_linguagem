@@ -55,11 +55,41 @@ const removeAddressService= (id,addressId)=>{
 }
 
 const addFavProductService= (id,produto)=>{
-
+    return usuario.findOneAndUpdate(
+        {
+        
+            _id: id
+        },
+        {
+            $push:{
+                produtos_fav:{
+                    _id: produto._id
+                }
+            }
+        },
+        {
+            rawResult:true
+        }
+    )
 }
 
-const removeFavProductService= (produto)=>{
-
+const removeFavProductService= (id,produto)=>{
+    return usuario.findOneAndUpdate(
+        {
+        
+            _id: id
+        },
+        {
+            $pull:{
+                produtos_fav:{
+                    _id: produto._id
+                }
+            }
+        },
+        {
+            rawResult:true
+        }
+    )
 }
 
 module.exports={
