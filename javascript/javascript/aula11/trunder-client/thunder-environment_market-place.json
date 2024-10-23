@@ -1,0 +1,22 @@
+{
+    "clientName": "Thunder Client",
+    "environmentName": "market-place",
+    "environmentId": "46e8e7e9-6dbe-40cb-be98-9d3d19e9466f",
+    "dateExported": "2024-10-23T23:37:59.577Z",
+    "version": "1.2",
+    "variables": [
+        {
+            "name": "baseurl",
+            "value": "http://localhost"
+        },
+        {
+            "name": "port",
+            "value": "3000"
+        },
+        {
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY3MTg1NTliYTc0MTVhZjIwNjk5ZmNlZSIsIm5vbWUiOiJnaW92YW5uZSAiLCJlbWFpbCI6InRlc3RlMjJAdGVzdGUuY29tIiwic2VuaGEiOiIkMmIkMTAkTUZQVjh5TUtXcjVKYm8vQ1VQUzl5T0lMWTY4czg1N1dFUlpHT2IvcFhmbUFNUWp6d20wMnkiLCJpbWFnZW0iOiIwMDAiLCJjcmVhdGVkQXQiOiIyMDI0LTEwLTIzVDAxOjQ3OjAwLjU5MFoiLCJhZG1pbiI6ZmFsc2UsImVuZGVyZWNvcyI6W10sInByb2R1dG9zX2ZhdiI6W10sIl9fdiI6MH0sImlhdCI6MTcyOTcyNDQ5MCwiZXhwIjoxNzI5NzM0NDkwfQ.8cWVRRX9eXwjPL84c521PYr1oiTa_ZpKgP2_v7z0JfA"
+        }
+    ],
+    "ref": "hNlIYh1H2UWEeimCEI_0xFi1vFM-OAS0zMGmdjbQf900HKJvvk53Q-10tA7sXVmJ"
+}

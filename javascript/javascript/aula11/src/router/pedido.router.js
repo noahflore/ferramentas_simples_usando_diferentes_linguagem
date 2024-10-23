@@ -9,4 +9,6 @@ router.post("/create",authmiddleware,pedidoController.createPedidoController)
 
 router.delete("/delete/:id",authmiddleware,pedidoController.deletePedidoController)
 
+router.patch("/updateStatus/:id",authmiddleware,pedidoController.updateStatusPedidoController)
+
 module.exports= router

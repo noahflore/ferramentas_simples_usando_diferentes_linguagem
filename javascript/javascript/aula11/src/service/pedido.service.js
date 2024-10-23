@@ -17,7 +17,7 @@ const deletePedidoService= (id)=>{
 }
 
 const updateStatusPedidoService= (id)=>{
-
+    return pedido.findOneAndUpdate({_id: id},{$set:{concluido: true}},{rawResult:true})
 }
 
 module.exports={
