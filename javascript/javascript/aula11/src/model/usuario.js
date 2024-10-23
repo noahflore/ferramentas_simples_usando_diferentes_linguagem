@@ -24,13 +24,13 @@ const usuarioSchema=new mongoose.Schema({
     ],
     admin:{type:Boolean,require:true,default:false}
 })
-/*
+
 usuarioSchema.pre("save",async function (next){
     if(this.senha){
         this.senha= await bcrypt.hash(this.senha,10)
     }
     next()
-})*/
+})
 
 const novoUsuario=mongoose.model("usuarios",usuarioSchema)
 module.exports = novoUsuario

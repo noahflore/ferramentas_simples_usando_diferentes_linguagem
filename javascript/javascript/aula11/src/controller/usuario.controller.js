@@ -1,5 +1,6 @@
 const userService= require("../service/usuario.service")
 const authService= require("../service/auth.service")
+const bcrypt=require("bcrypt")
 
 const findByIdUserController= async (req,res)=>{
     try{
@@ -153,7 +154,7 @@ const usuarioLogin= async (req,res)=>{//aqui utilizei outro tipo de verificaçã
 			return res.status(400).send({message:"erro no login ou senha: verifica se ambos estão no formato string e foi digitado corretamente."})
 		}
 
-		if(senha != user.senha){
+		if(!await bcrypt.compare(senha,user.senha)){
 			return res.status(400).send({message:"erro no login ou senha: verifica se ambos estão no formato string e foi digitado corretamente."})
 		}
 
