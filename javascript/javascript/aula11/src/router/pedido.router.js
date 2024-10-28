@@ -1,11 +1,12 @@
 const router= require("express").Router()
 const authmiddleware= require("../middleware/usuario.middleware")
 const pedidoController= require("../controller/pedido.controller")
+const {validaPedido}= require("../middleware/validacao.middleware")
 
 router.get("/findById/:id",authmiddleware,pedidoController.findPedidoByIdController)
 router.get("/findAll",authmiddleware,pedidoController.findAllPedidoController)
 
-router.post("/create",authmiddleware,pedidoController.createPedidoController)
+router.post("/create",authmiddleware,validaPedido,pedidoController.createPedidoController)
 
 router.delete("/delete/:id",authmiddleware,pedidoController.deletePedidoController)
 

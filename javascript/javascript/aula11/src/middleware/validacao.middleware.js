@@ -87,8 +87,68 @@ const validaCategoria=(req,res,next)=>{
     return next()
 }
 
+const validaPedido= (req,res,next)=>{
+    let erros=[]
+
+    if(!req.body.precoTotal){
+        erros.push("precoTotal")
+
+    }else if(typeof(req.body.precoTotal)!="number"){
+        return res.status(400).send({message:"o campo 'precoTotal' tem que se Number."})
+    }
+
+    if(!req.body.frete){
+        erros.push("frete")
+
+    }else if(typeof(req.body.frete)!="number"){
+        return res.status(400).send({message:"o campo 'frete' tem que se Number."})
+    }
+
+    if(erros.length == 0){
+        return next()
+    }else{
+        if(erros.length>1){
+            return res.status(400).send({message:`os campos ${erros} não foram preenchidos.`})
+        }else{
+            return res.status(400).send({message:`o campo ${erros} não foi preenchido.`})
+        }
+    }
+
+}
+
+const validaCarrinho= (req,res,next)=>{
+    let erros=[]
+
+    if(!req.body.precoTotal){
+        erros.push("precoTotal")
+
+    }else if(typeof(req.body.precoTotal)!="number"){
+        return res.status(400).send({message:"o campo 'precoTotal' tem que se Number."})
+    }
+
+    if(!req.body.frete){
+        erros.push("frete")
+
+    }else if(typeof(req.body.frete)!="number"){
+        return res.status(400).send({message:"o campo 'frete' tem que se Number."})
+    }
+
+    if(erros.length == 0){
+        return next()
+    }else{
+        if(erros.length>1){
+            return res.status(400).send({message:`os campos ${erros} não foram preenchidos.`})
+        }else{
+            return res.status(400).send({message:`o campo ${erros} não foi preenchido.`})
+        }
+    }
+
+}
+
 module.exports= {
     validaUsuario,
     validaProduto,
-    validaCategoria
+    validaCategoria,
+    validaPedido,
+    validaCarrinho
 }
