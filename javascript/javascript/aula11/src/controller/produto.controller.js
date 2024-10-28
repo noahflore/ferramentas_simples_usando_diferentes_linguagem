@@ -29,7 +29,7 @@ const createProductController= async (req,res)=>{
             ...req.body,
             userId: req.userId
         }
-        res.send(await productService.createProductService(corpo))
+        res.status(201).send(await productService.createProductService(corpo))
 
     }catch(err){
         console.log(`erro: ${err}`)
