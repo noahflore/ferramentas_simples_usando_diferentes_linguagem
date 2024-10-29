@@ -1,12 +1,12 @@
 const router= require("express").Router()
 const usuarioController= require("../controller/usuario.controller")
 const authMiddleware= require("../middleware/usuario.middleware")
-const {validaUsuario,validaId}= require("../middleware/validacao.middleware")
+const {validaUsuario,validaId,validaLogin}= require("../middleware/validacao.middleware")
 
 router.get('/findById/:id',validaId,authMiddleware,usuarioController.findByIdUserController)
 router.get('/findAll',usuarioController.findAllUsersController)
 
-router.post('/login',usuarioController.usuarioLogin)
+router.post('/login',validaLogin,usuarioController.usuarioLogin)
 router.post('/create',validaUsuario,usuarioController.createUserController)
 router.post('/addAddress/:id',validaId,authMiddleware,usuarioController.addAddressController)
 router.post('/addFavProduct/:id',validaId,authMiddleware,usuarioController.addFavProductController)

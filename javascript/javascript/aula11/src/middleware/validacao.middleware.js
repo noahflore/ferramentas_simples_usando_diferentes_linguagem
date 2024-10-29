@@ -155,11 +155,40 @@ const validaId= (req,res,next)=>{
     }
 }
 
+const validaLogin= (req,res,next)=>{
+    let erros=[]
+
+    if(!req.body.email){
+        erros.push("email")
+
+    }else if(typeof(req.body.email)!="string"){
+        return res.status(400).send({message:"o campo 'email' tem que se String."})
+    }
+
+    if(!req.body.senha){
+        erros.push("senha")
+
+    }else if(typeof(req.body.senha)!="string"){
+        return res.status(400).send({message:"o campo 'senha' tem que se String."})
+    }
+
+    if(erros.length == 0){
+        return next()
+    }else{
+        if(erros.length>1){
+            return res.status(400).send({message:`os campos ${erros} não foram preenchidos.`})
+        }else{
+            return res.status(400).send({message:`o campo ${erros} não foi preenchido.`})
+        }
+    }
+}
+
 module.exports= {
     validaUsuario,
     validaProduto,
     validaCategoria,
     validaPedido,
     validaCarrinho,
-    validaId
+    validaId,
+    validaLogin
 }
