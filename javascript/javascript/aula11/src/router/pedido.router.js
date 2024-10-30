@@ -1,16 +1,16 @@
 const router= require("express").Router()
 const authmiddleware= require("../middleware/usuario.middleware")
 const pedidoController= require("../controller/pedido.controller")
-const {validaPedido,validaId}= require("../middleware/validacao.middleware")
+const {validaPedido,validaIdParams,validaProdutoCarrinhoPedido}= require("../middleware/validacao.middleware")
 const paginacao= require("../middleware/paginacao.middleware")
 
-router.get("/findById/:id",validaId,authmiddleware,pedidoController.findPedidoByIdController)
+router.get("/findById/:id",validaIdParams,authmiddleware,pedidoController.findPedidoByIdController)
 router.get("/findAll",paginacao,authmiddleware,pedidoController.findAllPedidoController)
 
-router.post("/create",authmiddleware,validaPedido,pedidoController.createPedidoController)
+router.post("/create",authmiddleware,validaProdutoCarrinhoPedido,validaPedido,pedidoController.createPedidoController)
 
-router.delete("/delete/:id",validaId,authmiddleware,pedidoController.deletePedidoController)
+router.delete("/delete/:id",validaIdParams,authmiddleware,pedidoController.deletePedidoController)
 
-router.patch("/updateStatus/:id",validaId,authmiddleware,pedidoController.updateStatusPedidoController)
+router.patch("/updateStatus/:id",validaIdParams,authmiddleware,pedidoController.updateStatusPedidoController)
 
 module.exports= router
