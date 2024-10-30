@@ -10,7 +10,7 @@ const pedidoSchema= new mongoose.Schema({
     createdAt:{type:Date,required:true,default:Date.now()},
     precoTotal:{type:Number,required:true},
     frete:{type:Number,required:true},
-    userId:{type:mongoose.Schema.Types.ObjectId,required:true,unique:true,ref:"usuarios"},
+    userId:{type:mongoose.Schema.Types.ObjectId,required:true,unique:false,ref:"usuarios"},
     concluido:{type:Boolean,required:true,default:false}
 })
 
