@@ -13,7 +13,7 @@ const findCategoriaByIdController= async (req,res)=>{
 
 const findAllCategoriaController= async (req,res)=>{
     try{
-        return res.send(await categoriaService.findAllCategoriaService())
+        return res.send(await categoriaService.findAllCategoriaService(req.query.limit,req.query.offset))
 
     }catch(err){
         console.log(`erro: ${err}`)

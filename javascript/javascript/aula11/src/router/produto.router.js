@@ -2,9 +2,10 @@ const router= require("express").Router()
 const productController= require("../controller/produto.controller")
 const authMiddleware= require("../middleware/usuario.middleware")
 const {validaProduto,validaId}= require("../middleware/validacao.middleware")
+const paginacao= require("../middleware/paginacao.middleware")
 
 router.get("/find/:id",validaId,authMiddleware,productController.findByIdProductController)
-router.get("/findAll",authMiddleware,productController.findAllProductController)
+router.get("/findAll",paginacao,authMiddleware,productController.findAllProductController)
 
 router.post("/create",authMiddleware,validaProduto,productController.createProductController)
 router.post("/addCategoria/:id",validaId,authMiddleware,productController.addCategoriaProductController)

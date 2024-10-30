@@ -4,8 +4,8 @@ const findPedidoByIdService= (id)=>{
     return pedido.findById(id)
 }
 
-const findAllPedidoService= ()=>{
-    return pedido.find()
+const findAllPedidoService= (limit,offset)=>{
+    return pedido.find().limit(limit).skip(offset)
 }
 
 const createPedidoService= (body)=>{

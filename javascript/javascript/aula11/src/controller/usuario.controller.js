@@ -28,7 +28,7 @@ const findByIdUserController= async (req,res)=>{
 const findAllUsersController= async (req,res)=>{
     try{
 
-        return res.status(200).send(await userService.findAllService())
+        return res.status(200).send(await userService.findAllService(req.query.limit,req.query.offset))
 
     }catch(err){
         console.log(`erro: ${err.message}`)

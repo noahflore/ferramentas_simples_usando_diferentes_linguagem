@@ -1,7 +1,7 @@
 const usuario= require("../model/usuario")
 
-const findAllService= ()=>{
-    return usuario.find()
+const findAllService= (limit,offset)=>{
+    return usuario.find().limit(limit).skip(limit)
 }
 
 const findByIdService= (id)=>{
