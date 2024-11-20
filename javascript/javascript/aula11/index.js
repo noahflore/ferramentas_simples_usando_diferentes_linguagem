@@ -8,6 +8,7 @@ const produto = require("./src/router/produto.router")
 const categoria = require("./src/router/categoria.router")
 const carrinho = require("./src/router/carrinho.router")
 const pedido = require("./src/router/pedido.router")
+const docs = require("./src/router/docs.router")
 
 connectToDataBase()
 
@@ -20,6 +21,7 @@ app.use("/produto",produto)
 app.use("/categoria",categoria)
 app.use("/carrinho",carrinho)
 app.use("/pedido",pedido)
+app.use("/docs",docs)
 
 app.get("/",(req,res)=>{
 	
