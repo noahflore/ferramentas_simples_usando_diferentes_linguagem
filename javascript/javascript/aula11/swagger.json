@@ -14,5 +14,28 @@
             "url":"http://localhost:3000/",
             "description":"api de teste"
         }
-    ]
+    ],
+    "paths":{
+        "/usuario/findAll":{
+            "get":{
+                "summary":"lista todos os usuarios da api",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "responses":{
+                    "200":{
+                        "description":"ok"
+                    },
+                    "401":{
+                        "description":"token invalido"
+                    },
+                    "404":{
+                        "description":"não encontrado"
+                    },
+                    "500":{
+                        "description":"erro de servidor"
+                    }
+                }
+            }
+        }
+    }
 }
