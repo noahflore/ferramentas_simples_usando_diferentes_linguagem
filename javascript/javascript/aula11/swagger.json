@@ -18,21 +18,893 @@
     "paths":{
         "/usuario/findAll":{
             "get":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
                 "summary":"lista todos os usuarios da api",
                 "description":"lista usuarios dentro de um banco de dados. ",
                 "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"limit"
+                    },
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"offset"
+                    }
+                ],
                 "responses":{
                     "200":{
-                        "description":"ok"
+                        "description":"ok",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"array",
+                                          "items":{
+                                             "type":"object",
+                                             "$ref":"#/components/schemas/usuario"
+                                            }
+                                        
+
+                                    }
+                                  }
+                           }
+                    },"401":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
                     },
-                    "401":{
-                        "description":"token invalido"
+                     "404":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
                     },
-                    "404":{
-                        "description":"não encontrado"
+                     "500":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        },
+        "/usuario/findById/{id}":{
+            "get":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary":"lista por ID os usuarios da api",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"retorna um único usuário por ID",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"array",
+                                          "items":{
+                                             "type":"object",
+                                             "$ref":"#/components/schemas/usuario"
+                                            }
+                                        
+
+                                    }
+                                  }
+                           }
+                    },"401":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "404":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "500":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        },
+        "/usuario/create":{
+            "post":{
+                "summary":"cria um novo usuário",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"body",
+                        "schema":{
+                            "$ref":"#/components/schemas/usuario"
+                        },
+                        "name":"body",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"retorna um único usuário por ID",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                      "type":"object",
+                                      "$ref":"#/components/schemas/usuario"
+                                    }
+                                  }
+                           }
                     },
                     "500":{
-                        "description":"erro de servidor"
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        },
+        "/usuario/update/{id}":{
+            "put":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary":"lista por ID os usuarios da api",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id",
+                        "required":true
+                    },
+                    {
+                        "in":"body",
+                        "schema":{
+                            "$ref":"#/components/schemas/usuario"
+                        },
+                        "name":"body",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                   "201":{
+                        "description":"retorna um único usuário por ID",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                      "type":"object",
+                                      "$ref":"#/components/schemas/usuario"
+                                    }
+                                  }
+                           }
+                    },
+                    "401":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "404":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "500":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        },
+        "/usuario/delete/{id}":{
+            "delete":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary":"lista por ID os usuarios da api",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"retorna um único usuário por ID",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"array",
+                                          "items":{
+                                             "type":"object",
+                                             "$ref":"#/components/schemas/usuario"
+                                            }
+                                        
+
+                                    }
+                                  }
+                           }
+                    },"401":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "404":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "500":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        },
+        "/usuario/addAdress/{id}":{
+            "post":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary":"lista por ID os usuarios da api",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id",
+                        "required":true
+                    },
+                    {
+                        "in":"body",
+                        "schema":{
+                            "$ref":"#/components/schemas/useraddres"
+                        },
+                        "name":"body",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"retorna um único usuário por ID",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"array",
+                                          "items":{
+                                             "type":"object",
+                                             "$ref":"#/components/schemas/usuario"
+                                            }
+                                        
+
+                                    }
+                                  }
+                           }
+                    },"401":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "404":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "500":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        },
+        "/usuario/removeAdress/{id}":{
+            "delete":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary":"lista por ID os usuarios da api",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"retorna um único usuário por ID",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"array",
+                                          "items":{
+                                             "type":"object",
+                                             "$ref":"#/components/schemas/useraddres"
+                                            }
+                                        
+
+                                    }
+                                  }
+                           }
+                    },"401":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "404":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "500":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        },
+        "/usuario/addFavProduct/{id}":{
+            "post":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary":"lista por ID os usuarios da api",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id",
+                        "required":true
+                    },
+                    {
+                        "in":"body",
+                        "schema":{
+                            "$ref":"#/components/schemas/userprodutos_fav"
+                        },
+                        "name":"body",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"retorna um único usuário por ID",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"array",
+                                          "items":{
+                                             "type":"object",
+                                             "$ref":"#/components/schemas/usuario"
+                                            }
+                                        
+
+                                    }
+                                  }
+                           }
+                    },"401":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "404":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "500":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        },
+        "/usuario/removeFavProduct/{id}":{
+            "delete":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary":"lista por ID os usuarios da api",
+                "description":"lista usuarios dentro de um banco de dados. ",
+                "tags":["usuario"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"retorna um único usuário por ID",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"array",
+                                          "items":{
+                                             "type":"object",
+                                             "$ref":"#/components/schemas/useraddres"
+                                            }
+                                        
+
+                                    }
+                                  }
+                           }
+                    },"401":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "404":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                     "500":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    }
+                }
+            }
+        }
+    },
+    "components":{
+        "securitySchemes":{
+            "bearerAuth":{
+                "type":"http",
+                "scheme":"bearer",
+                "bearerFormat":"jwt"
+            }
+        },
+        "schemas":{
+            "usuario":{
+             "type":"object",
+             "properties":{
+                "nome":{
+                    "type":"string"
+                },
+                "email":{
+                    "type":"string"
+                },
+                "senha":{
+                    "type":"string"
+                },
+                "imagem":{
+                    "type":"string"
+                },
+                "enderecos":{
+                    "type":"array",
+                    "items":{
+                        "properties":{
+                            "rua":{
+                                "type":"string"
+                            },
+                            "numero":{
+                                "type":"integer"
+                            },
+                            "complemento":{
+                                "type":"string"
+                            },
+                            "cep":{
+                                "type":"string"
+                            },
+                            "createdAt":{
+                                "type":"string"
+                            }
+                        }
+                    }
+                },
+                "produtos_fav":{
+                    "type":"array",
+                    "items":{
+                        "properties":{
+                            "_id":{
+                                "type":"string"
+                            },
+                            "createdAt":{
+                                "type":"string"
+                            }
+                        }
+                    }
+                }
+             }
+
+            },
+            "useraddres":{
+                    "type":"array",
+                    "items":{
+                        "properties":{
+                            "rua":{
+                                "type":"string"
+                            },
+                            "numero":{
+                                "type":"integer"
+                            },
+                            "complemento":{
+                                "type":"string"
+                            },
+                            "cep":{
+                                "type":"string"
+                            },
+                            "createdAt":{
+                                "type":"string"
+                            }
+                        }
+                    }
+                
+            },
+            "userprodutos_fav":{
+                "type":"array",
+                "items":{
+                    "properties":{
+                        "_id":{
+                            "type":"string"
+                        },
+                        "createdAt":{
+                            "type":"string"
+                        }
                     }
                 }
             }
