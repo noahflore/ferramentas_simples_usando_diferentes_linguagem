@@ -124,9 +124,9 @@
                 "tags":["usuario"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id",
                         "required":true
@@ -148,7 +148,24 @@
                                     }
                                   }
                            }
-                    },"401":{
+                    },"400":{
+                        "description":"erro de servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                      "properties":{
+                                         "message":{
+                                             "type":"string"
+                                         }
+                                        }
+                                    
+
+                                }
+                              }
+                       }
+                    },
+                    "401":{
                         "description":"erro de servidor",
                         "content":{
                             "application/json":{
@@ -207,16 +224,18 @@
                 "summary":"cria um novo usuário",
                 "description":"lista usuarios dentro de um banco de dados. ",
                 "tags":["usuario"],
-                "parameters":[
-                    {
-                        "in":"body",
-                        "schema":{
-                            "$ref":"#/components/schemas/usuario"
-                        },
-                        "name":"body",
-                        "required":true
-                    }
-                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "$ref":"#/components/schemas/usuario"
+                                }
+                          }
+                    },
+                    "required":true
+                },
+                
                 "responses":{
                     "201":{
                         "description":"retorna um único usuário por ID",
@@ -261,22 +280,25 @@
                 "tags":["usuario"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id",
                         "required":true
-                    },
-                    {
-                        "in":"body",
-                        "schema":{
-                            "$ref":"#/components/schemas/usuario"
-                        },
-                        "name":"body",
-                        "required":true
                     }
                 ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "$ref":"#/components/schemas/usuario"
+                                }
+                          }
+                    },
+                    "required":true
+                },
                 "responses":{
                    "201":{
                         "description":"retorna um único usuário por ID",
@@ -343,7 +365,7 @@
                 }
             }
         },
-        "/usuario/delete/{id}":{
+        "/usuario/removeUser/{id}":{
             "delete":{
                 "security":[
                     {
@@ -355,9 +377,9 @@
                 "tags":["usuario"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id",
                         "required":true
@@ -445,22 +467,25 @@
                 "tags":["usuario"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id",
                         "required":true
-                    },
-                    {
-                        "in":"body",
-                        "schema":{
-                            "$ref":"#/components/schemas/useraddres"
-                        },
-                        "name":"body",
-                        "required":true
                     }
                 ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "$ref":"#/components/schemas/useraddres"
+                                }
+                          }
+                    },
+                    "required":true
+                },
                 "responses":{
                     "201":{
                         "description":"retorna um único usuário por ID",
@@ -531,7 +556,7 @@
                 }
             }
         },
-        "/usuario/removeAdress/{id}":{
+        "/usuario/removeAdress/":{
             "delete":{
                 "security":[
                     {
@@ -541,16 +566,24 @@
                 "summary":"lista por ID os usuarios da api",
                 "description":"lista usuarios dentro de um banco de dados. ",
                 "tags":["usuario"],
-                "parameters":[
-                    {
-                        "in":"query",
-                        "schema":{
-                            "type":"integer"
-                        },
-                        "name":"id",
-                        "required":true
-                    }
-                ],
+                 "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "id":{
+                                        "type":"string"
+                                    },
+                                    "addressId":{
+                                        "type":"string"
+                                    }
+                                }
+                                }
+                          }
+                    },
+                    "required":true
+                },
                 "responses":{
                     "200":{
                         "description":"retorna um único usuário por ID",
@@ -633,22 +666,25 @@
                 "tags":["usuario"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id",
                         "required":true
-                    },
-                    {
-                        "in":"body",
-                        "schema":{
-                            "$ref":"#/components/schemas/userprodutos_fav"
-                        },
-                        "name":"body",
-                        "required":true
                     }
                 ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "$ref":"#/components/schemas/userprodutos_fav"
+                                }
+                          }
+                    },
+                    "required":true
+                },
                 "responses":{
                     "201":{
                         "description":"retorna um único usuário por ID",
@@ -731,14 +767,29 @@
                 "tags":["usuario"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id",
                         "required":true
                     }
                 ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "_id":{
+                                        "type":"string"
+                                    }
+                                }
+                                }
+                          }
+                    },
+                    "required":true
+                },
                 "responses":{
                     "200":{
                         "description":"retorna um único usuário por ID",
