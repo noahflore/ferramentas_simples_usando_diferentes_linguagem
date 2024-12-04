@@ -1,5 +1,6 @@
 const Express= require("express")
 require("dotenv").config()
+const cors= require("cors")
 const connectToDataBase= require("./src/database/database")
 
 const app= Express()
@@ -16,6 +17,12 @@ const port= 3000
 
 
 app.use(Express.json())
+app.use(cors(
+	{
+		origin:"localhost:3001",
+		methods:["GET","POST","PUT","DELETE","PATCH"]
+	}
+))
 app.use("/usuario",usuario)
 app.use("/produto",produto)
 app.use("/categoria",categoria)
